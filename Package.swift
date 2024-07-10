@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "MMKVXCFramework",
+    name: "MMKV",
     products: [.library(name: "MMKV", targets: ["MMKV"])],
     targets: [
         .binaryTarget(
