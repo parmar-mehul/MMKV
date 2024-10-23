@@ -6,7 +6,6 @@ echo "start..."
 SCHEME_NAME="MMKV"
 FRAMEWORK_NAME="MMKV"
 OUTPUT_DIC="/Users/mehul/Documents/iOS/Projects/Library/XCFramework/MMKV/XCFramework"
-SOURCES_DIC="/Users/mehul/Documents/iOS/Projects/Library/XCFramework/MMKV/Sources"
 FRAMEWORK_PATH="${OUTPUT_DIC}/${FRAMEWORK_NAME}.xcframework"
 FRAMEWORK_PATH_ZIP="${FRAMEWORK_PATH}.zip"
 
@@ -94,10 +93,6 @@ xcodebuild -create-xcframework \
 if [ -d "${FRAMEWORK_PATH}" ]; then
 # Sign the XCFramework
 codesign --timestamp -s "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${FRAMEWORK_PATH_ZIP}"
-
-rm -rf "${SOURCES_DIC}" # Ensure output directory is fully cleared
-mkdir -p "${SOURCES_DIC}" # create directory if not exist
-cp -R "${FRAMEWORK_PATH}" "${SOURCES_DIC}/" # Copy XCFramework from XCFramework to Sources
 
 # Zip the XCFramework
 cd "${OUTPUT_DIC}" && zip -r "${FRAMEWORK_NAME}.xcframework.zip" "${FRAMEWORK_NAME}.xcframework"
