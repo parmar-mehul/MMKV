@@ -70,3 +70,8 @@ This XCFramework supports:
 
 - This XCFramework is built for **distribution** using `BUILD_LIBRARY_FOR_DISTRIBUTION=YES`, ensuring compatibility with binary frameworks and future Swift versions.
 - Make sure to select the correct target platform when using MMKV in your project to avoid compatibility issues.
+- Clearing SPMs package cache is the only way I know how to mitigate issue of below issue. The package caches lives at:
+> checksum of downloaded artifact of binary target [...] does not match checksum specified by the manifest [...]
+```
+rm -r ~/Library/Caches/org.swift.swiftpm
+```
