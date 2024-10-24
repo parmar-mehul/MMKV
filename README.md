@@ -73,5 +73,7 @@ This XCFramework supports:
 - Clearing SPMs package cache is the only way I know how to mitigate issue of below issue. The package caches lives at:
 > checksum of downloaded artifact of binary target [...] does not match checksum specified by the manifest [...]
 ```
-rm -r ~/Library/Caches/org.swift.swiftpm
+rm -rf ~/Library/Caches/org.swift.swiftpm
+rm -rf ~/Library/org.swift.swiftpm/configuration
+rm -rf ~/Library/org.swift.swiftpm/security
 ```
