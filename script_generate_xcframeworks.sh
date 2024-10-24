@@ -65,6 +65,12 @@ archive_framework "${SCHEME_NAME}" appletvsimulator "tvOS-Simulator" "tvOS Simul
 archive_framework "${SCHEME_NAME}" "macosx" "macOS-Catalyst" "macOS,variant=Mac Catalyst,name=Any Mac"
 archive_framework "${SCHEME_NAME}" "macosx" "macOS" "macOS"
 
+find "${OUTPUT_DIC}" -name "*.framework" -or -name "*.dylib" | while read component; do
+	codesign --timestamp -v --sign "Apple Distribution: Covantex LLC (8JPF68MSBL)" "$component"
+	codesign --verify --deep --strict "$component"
+	codesign -dv "$component"
+done
+
 # Create XCFramework combining all architectures, currently I am generating for
 # ios-arm64, ios-arm64_x86_64-maccatalyst, ios-arm64_x86_64-simulator, ios-arm64_x86_64-maccatalyst
 # macos-arm64_x86_64, macos-arm64_x86_64
@@ -89,13 +95,23 @@ xcodebuild -create-xcframework \
 	-debug-symbols "${OUTPUT_DIC}/${FRAMEWORK_NAME}-macOS-Catalyst.xcarchive/dSYMs/${SCHEME_NAME}.framework.dSYM" \
 	-output "${FRAMEWORK_PATH}"
 
+find "${FRAMEWORK_PATH}" -name "*.framework" -or -name "*.dylib" | while read component; do
+	codesign --timestamp -v --sign "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${component}"
+	codesign --verify --deep --strict "${component}"
+	codesign -dv "${component}"
+	codesign -vv "${component}"
+done
+
 # Zip the XCFramework
 if [ -d "${FRAMEWORK_PATH}" ]; then
 	# Sign the XCFramework
-	codesign --timestamp -s "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${FRAMEWORK_PATH}"
+	codesign --timestamp -v --sign "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${FRAMEWORK_PATH}"
+	codesign --verify --deep --strict "${FRAMEWORK_PATH}"
+	codesign -dv "${FRAMEWORK_PATH}"
+	codesign -vv "${FRAMEWORK_PATH}"
 
-	# Zip the XCFramework
-	cd "${OUTPUT_DIC}" && zip -r "${FRAMEWORK_PATH_ZIP}" "${FRAMEWORK_PATH}"
+	# Zip the XCFramework & Preserve symlinks using the -y option
+	cd "${OUTPUT_DIC}" && zip -ryqo "${FRAMEWORK_PATH_ZIP}" "${FRAMEWORK_PATH}"
 
 	# Compute and write checksum
 	swift package compute-checksum "${FRAMEWORK_PATH_ZIP}" > checksum.txt
