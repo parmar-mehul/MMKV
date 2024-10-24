@@ -91,18 +91,18 @@ xcodebuild -create-xcframework \
 
 # Zip the XCFramework
 if [ -d "${FRAMEWORK_PATH}" ]; then
-# Sign the XCFramework
-codesign --timestamp -s "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${FRAMEWORK_PATH_ZIP}"
+	# Sign the XCFramework
+	codesign --timestamp -s "Apple Distribution: Covantex LLC (8JPF68MSBL)" "${FRAMEWORK_PATH}"
 
-# Zip the XCFramework
-cd "${OUTPUT_DIC}" && zip -r "${FRAMEWORK_NAME}.xcframework.zip" "${FRAMEWORK_NAME}.xcframework"
+	# Zip the XCFramework
+	cd "${OUTPUT_DIC}" && zip -r "${FRAMEWORK_PATH_ZIP}" "${FRAMEWORK_PATH}"
 
-# Compute and write checksum
-swift package compute-checksum "${FRAMEWORK_NAME}.xcframework.zip" > checksum.txt
+	# Compute and write checksum
+	swift package compute-checksum "${FRAMEWORK_PATH_ZIP}" > checksum.txt
 
-echo "XCFramework created and zipped at ${FRAMEWORK_PATH_ZIP}"
+	echo "XCFramework created and zipped at ${FRAMEWORK_PATH_ZIP}"
 else
-echo "Error: ${FRAMEWORK_PATH} not found." exit 1
+	echo "Error: ${FRAMEWORK_PATH} not found." exit 1
 fi
 
 echo "...finish"
