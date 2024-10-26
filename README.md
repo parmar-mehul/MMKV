@@ -52,6 +52,14 @@ To use the MMKV XCFramework in your project via Swift Package Manager (SPM), fol
 
 The MMKV framework will now be integrated into your project and ready for use.
 
+```swift
+#if os(watchOS)
+import MMKVWatchExtension // Watch-specific
+#else
+import MMKV // iOS, macOS, tvOS
+#endif
+```
+
 ## Supported Platforms
 
 This XCFramework supports:
@@ -73,7 +81,10 @@ This XCFramework supports:
 - Clearing SPMs package cache is the only way I know how to mitigate issue of below issue. The package caches lives at:
 > checksum of downloaded artifact of binary target [...] does not match checksum specified by the manifest [...]
 ```
+rm -rf ~/Library/Developer/Xcode/DerivedData
 rm -rf ~/Library/Caches/org.swift.swiftpm
 rm -rf ~/Library/org.swift.swiftpm/configuration
 rm -rf ~/Library/org.swift.swiftpm/security
+
+Re-fetch the package dependencies by selecting File > Packages > Reset Package Caches in Xcode.
 ```

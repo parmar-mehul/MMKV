@@ -9,7 +9,8 @@ let package = Package(
 		.iOS(.v13), .macOS(.v13), .watchOS(.v9), .tvOS(.v16)
 	],
     products: [
-		.library(name: "MMKV", targets: ["MMKV", "MMKVWatchExtension"])
+		.library(name: "MMKV", targets: ["MMKV"]),
+		.library(name: "MMKVWatchExtension", targets: ["MMKVWatchExtension"])
 	],
     targets: [
         .binaryTarget(
