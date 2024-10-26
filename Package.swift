@@ -5,13 +5,23 @@ import PackageDescription
 
 let package = Package(
     name: "MMKV",
-    products: [.library(name: "MMKV", targets: ["MMKV"])],
+	platforms: [
+		.iOS(.v13), .macOS(.v13), .watchOS(.v9), .tvOS(.v16)
+	],
+    products: [
+		.library(name: "MMKV", targets: ["MMKV", "MMKVWatchExtension"])
+	],
     targets: [
         .binaryTarget(
             name: "MMKV",
 			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.0/MMKV.xcframework.zip",
-            checksum: "77c58b98af15f74fedc27963dad76eadfd7d21cb39b757621c20ed07bc7e5cef"
+            checksum: "abd8a02d64fcf9acbb728980453d6fe6af56e5cbcad9927da4ce8e887d68e889"
         ),
+		.binaryTarget(
+			name: "MMKVWatchExtension",
+			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.0/MMKVWatchExtension.xcframework.zip", // hypothetical
+			checksum: "70d14e20cf87cf9b15f31a152ebd15fd8d5aaca5cb91373a6945492072d0752c"
+		),
         .testTarget(name: "MMKVTests", dependencies: ["MMKV"]),
     ]
 )
