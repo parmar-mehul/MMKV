@@ -37,7 +37,7 @@ The XCFramework is created by combining multiple architectures to support variou
 
 ## Requirements
 
-- **Xcode**: Version 16.0 or later
+- **Xcode**: Version 16.2 or later
 - **Swift**: Version 5.10 or later
 
 ## Integration via Swift Package Manager
@@ -73,6 +73,15 @@ This XCFramework supports:
 - Multi-Platform Support: Bundle code for iOS, macOS, tvOS, and watchOS in a single framework.
 - Simplicity and Maintenance: Easier version management and reduced complexity in dependency management.
 - Binary Compatibility: Ensures compatibility across different architectures, making it easier to distribute and use the framework.
+
+### What If I cant to generate XCFramework again by my self
+- Clone [Tencent/MMKV Master branch](https://github.com/Tencent/MMKV.git)
+- Clone [parmar-mehul/MMKV Master branch](https://github.com/parmar-mehul/MMKV.git)
+- Make sure clone both on same folder
+- Update `script_generate_xcframeworks.sh` as per your sytem if you want to generate new XCframwork, otherwise, existing framework will work fine, don't worry
+    - OUTPUT_DIC
+    - CODESIGN_APPLE_DISTRIBUTION_CERTIFICATE_NAME
+    - PASSWORD_FOR_UNLOCK_KEYCHAIN
 
 ## Notes
 

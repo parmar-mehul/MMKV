@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This scipt will generate XCFramwork for iOS app
+# Update `script_generate_xcframeworks.sh` as per your sytem if you want to generate new XCframwork, otherwise, existing framework will work fine, don't worry
+#    - OUTPUT_DIC
+#    - CODESIGN_APPLE_DISTRIBUTION_CERTIFICATE_NAME
+#    - PASSWORD_FOR_UNLOCK_KEYCHAIN
+
 echo "start..."
 echo "Generate XCFramework for MMKV & MMKVWatchExtension"
 
@@ -9,6 +15,8 @@ FRAMEWORK_NAME="MMKV"
 OUTPUT_DIC="/Users/mehul/Documents/iOS/Projects/Library/XCFramework/MMKV/XCFramework"
 FRAMEWORK_PATH="${OUTPUT_DIC}/${FRAMEWORK_NAME}.xcframework"
 FRAMEWORK_PATH_ZIP="${FRAMEWORK_PATH}.zip"
+CODESIGN_APPLE_DISTRIBUTION_CERTIFICATE_NAME="Apple Distribution: Ocenture, LLC (W95Q2ESFG7)"
+PASSWORD_FOR_UNLOCK_KEYCHAIN="parmar"
 
 FRAMEWORK_NAME_MMKVWatchExtension="MMKVWatchExtension"
 FRAMEWORK_PATH_MMKVWatchExtension="${OUTPUT_DIC}/${FRAMEWORK_NAME_MMKVWatchExtension}.xcframework"
@@ -103,10 +111,10 @@ xcodebuild -create-xcframework \
 if [ -d "${FRAMEWORK_PATH}" ]; then
 	# Sign the XCFramework -> Here, password to unlock default: KEYCHAIN_PASSWORD, Enter your computer password to unlock keychain and find and sign certificate to .xcframework file
 	# 	To check if certificate is available or not, Use terminal and enter "security find-identity -v -p codesigning", you can find valid identities
-	security unlock-keychain -p "parmar" login.keychain
+	security unlock-keychain -p "${PASSWORD_FOR_UNLOCK_KEYCHAIN}" login.keychain
 
 	# codesign tool allows you to set the signature identifier for XCFramework (or binary)
-	codesign --sign "Apple Distribution: Covantex LLC (8JPF68MSBL)" -v "${FRAMEWORK_PATH}" --timestamp --preserve-metadata=identifier,entitlements,flags --generate-entitlement-der
+	codesign --sign "${CODESIGN_APPLE_DISTRIBUTION_CERTIFICATE_NAME}" -v "${FRAMEWORK_PATH}" --timestamp --preserve-metadata=identifier,entitlements,flags --generate-entitlement-der
 
 	# Verify the signature on a signed binary, Verify the integrity of the signed binary framework
 	codesign -vv "${FRAMEWORK_PATH}"
@@ -138,10 +146,10 @@ fi
 if [ -d "${FRAMEWORK_PATH_MMKVWatchExtension}" ]; then
 	# Sign the XCFramework -> Here, password to unlock default: KEYCHAIN_PASSWORD, Enter your computer password to unlock keychain and find and sign certificate to .xcframework file
 	# 	To check if certificate is available or not, Use terminal and enter "security find-identity -v -p codesigning", you can find valid identities
-	security unlock-keychain -p "parmar" login.keychain
+	security unlock-keychain -p "${PASSWORD_FOR_UNLOCK_KEYCHAIN}" login.keychain
 
 	# codesign tool allows you to set the signature identifier for XCFramework (or binary)
-	codesign --sign "Apple Distribution: Covantex LLC (8JPF68MSBL)" -v "${FRAMEWORK_PATH_MMKVWatchExtension}" --timestamp --preserve-metadata=identifier,entitlements,flags --generate-entitlement-der
+	codesign --sign "${CODESIGN_APPLE_DISTRIBUTION_CERTIFICATE_NAME}" -v "${FRAMEWORK_PATH_MMKVWatchExtension}" --timestamp --preserve-metadata=identifier,entitlements,flags --generate-entitlement-der
 
 	# Verify the signature on a signed binary, Verify the integrity of the signed binary framework
 	codesign -vv "${FRAMEWORK_PATH_MMKVWatchExtension}"

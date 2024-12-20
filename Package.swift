@@ -15,13 +15,13 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "MMKV",
-			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.0/MMKV.xcframework.zip",
-            checksum: "f6df44a94d0cc6f6a6222539565a9104d7153273b3c790a116f956bf392f0c29"
+			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.1/MMKV.xcframework.zip",
+            checksum: "70a3445a9adde855373ca1568dba51fc20171efae1da154fda58b8c9e6c35faa"
         ),
 		.binaryTarget(
 			name: "MMKVWatchExtension",
-			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.0/MMKVWatchExtension.xcframework.zip", // hypothetical
-			checksum: "5c6b79a6ea78a73f8ac13f4c20967358335bbb57dd98d56cc26410ec09281497"
+			url: "https://github.com/parmar-mehul/MMKV-XCFramework/releases/download/2.0.1/MMKVWatchExtension.xcframework.zip", // hypothetical
+			checksum: "b9c68348a32b75e4b492b33bba0cb6f7e2a26e8a2dc2bdbc7e1147b9c7efb7eb"
 		),
         .testTarget(name: "MMKVTests", dependencies: ["MMKV"]),
     ]
