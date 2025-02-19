@@ -36,8 +36,7 @@ The XCFramework is created by combining multiple architectures to support variou
   - `tvos-arm64_x86_64-simulator`
 
 ## Requirements
-
-- **Xcode**: Version 16.2 or later
+- **Xcode**: Version 16.2 (16C5032a) or later (with MacOS 15.3.1 (24D70))
 - **Swift**: Version 5.10 or later
 
 ## Integration via Swift Package Manager
